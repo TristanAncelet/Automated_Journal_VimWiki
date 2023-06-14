@@ -1,19 +1,22 @@
 #!/usr/bin/bash
 
-JOURNAL_DIR=/home/tristan/Journal
-UPDATE_INDEX=$JOURNAL_DIR/update_index.sh
+
+JOURNAL_DIR=~/Journal
+cd $JOURNAL_DIR
+UPDATE_ALL=$JOURNAL_DIR/scripts/update_all.sh
 DATE=`date +'%Y-%m-%d'`
-FILE="$DATE.wiki"
+FILE="$JOURNAL_DIR/$DATE.wiki"
+
+[[ -f $JOURNAL_DIR/utils/journals.sh ]] && . $JOURNAL_DIR/utils/journals.sh
 
 # Getting the last journal entry file
-LAST_JOURNAL_ENTRY=`ls $JOURNAL_DIR/*.wiki -1 | sort -n | tail -n 1`
-# Getting just the filename
-LAST_JOURNAL_ENTRY=`basename $LAST_JOURNAL_ENTRY`
-
-# Updating my index notes
-[[ -f $UPDATE_INDEX ]] && $UPDATE_INDEX
+declare -a journals
+get_journals journals
+LAST_JOURNAL_ENTRY="${journals[-1]}"
 
 declare -A topics
+
+[[ -f $file ]] && exit
 
 while read line; do
 	# Stripping the '=' characters from the topic
@@ -44,14 +47,12 @@ $( for topic in "${!topics[@]}"; do
 done )
 
 # Times
-
 $( for topic in "${!topics[@]}"; do 
 	level=${topics["$topic"]}
 	[[ $level -eq 2 ]] && echo "[[$LAST_JOURNAL_ENTRY#$topic|$topic]]"; 
 done )
 
 # Subtopics
-
 $( for topic in "${!topics[@]}"; do 
 	level=${topics["$topic"]}
 	[[ $level -gt 2 ]] && echo "[[$LAST_JOURNAL_ENTRY#$topic|$topic]]"; 
@@ -59,3 +60,8 @@ done )
 
 
 " > $FILE
+
+
+
+
+[[ -f $UPDATE_ALL ]] && $UPDATE_ALL

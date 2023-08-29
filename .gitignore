@@ -2,4 +2,5 @@
 !scripts
 !scripts/*
 !scripts/*/*
+!scripts/**
 !.gitignore

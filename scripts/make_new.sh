@@ -1,13 +1,12 @@
 #!/usr/bin/bash
 
-
 JOURNAL_DIR=~/Journal
 cd $JOURNAL_DIR
 UPDATE_ALL=$JOURNAL_DIR/scripts/update_all.sh
 DATE=`date +'%Y-%m-%d'`
 FILE="$JOURNAL_DIR/$DATE.wiki"
 
-[[ -f $JOURNAL_DIR/utils/journals.sh ]] && . $JOURNAL_DIR/utils/journals.sh
+[[ -f $JOURNAL_DIR/scripts/utils/journals.sh ]] && . $JOURNAL_DIR/scripts/utils/journals.sh
 
 # Getting the last journal entry file
 declare -a journals
@@ -21,7 +20,7 @@ declare -A topics
 while read line; do
 	# Stripping the '=' characters from the topic
 	declare -i level=$( tr -cd '=' <<< "$line" | wc -c)
-	[[ $level -eq 0 ]] && { echo "A line ($line) that was grabbed returned a 0 count level?"; exit 1; }
+	[[ $level -eq 0 ]] && { echo "A line ($line) that was grabbed returned a 0 count level?"; continue; }
 
 	# Getting the topic "level" by getting the number of = in the topic and dividing it by 2
 	#

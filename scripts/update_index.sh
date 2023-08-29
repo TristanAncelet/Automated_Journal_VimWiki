@@ -14,6 +14,8 @@ get_journals journals
 echo "
 %title Journal Index
 [[full_index.wiki|Full Index]]
+[[tasks.wiki|Tasks Index]]
+[[how-to.wiki|How-To Index]]
 
 # Journals
 $( 

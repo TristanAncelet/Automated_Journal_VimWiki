@@ -3,6 +3,8 @@
 from pathlib import Path
 from utils.py.journals import *
 
+SCRIPT_DIR=Path.home()/"Journal"/"scripts"
+SCRIPT_DIR.cwd()
 TASK_FILE=Path.home()/"Journal"/"tasks.wiki"
 
 if not TASK_FILE.exists():

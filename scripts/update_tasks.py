@@ -6,6 +6,7 @@ import os
 
 PROJ_DIR=Path(os.getenv("PROJ_DIR"))
 TASK_FILE=PROJ_DIR/"tasks.wiki"
+NAV=os.getenv("SITE_NAV")
 
 if not TASK_FILE.exists():
     TASK_FILE.touch()
@@ -17,6 +18,7 @@ else:
 
 with TASK_FILE.open('a') as file:
     file.write("%title Tasks\n\n\n")
+    file.write(f"{NAV}\n")
 
     for fileobj in get_journal():
         filename = fileobj.name

@@ -1,8 +1,7 @@
 #!/opt/homebrew/bin/bash
 
-#set -x
-
-[[ -f $SCRIPT_DIR/utils/journals.sh ]] && . $SCRIPT_DIR/utils/journals.sh
+[[ $CONFIG -ne 1 ]] && [[ -f config.sh ]] && . config.sh
+import journals
 JOURNAL_FULL_INDEX=$PROJ_DIR/full_index.wiki
 
 declare -a journals

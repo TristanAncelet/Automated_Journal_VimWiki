@@ -1,5 +1,6 @@
 #!/opt/homebrew/bin/bash
 
+[[ $CONFIG -ne 1 ]] && [[ -f config.sh ]] && . config.sh
 cd $JOURNAL_DIR
 DATE=`date +'%Y-%m-%d'`
 FILE="$JOURNAL_DIR/$DATE.wiki"
@@ -39,7 +40,7 @@ echo "[[$LAST_JOURNAL_ENTRY|Last Journal Entry]]
 %title $DATE Journal Entry
 
 ---------------------
-[[/index.wiki|Index]]
+$SITE_NAV
 ---------------------
 
 Main Topics from previous journal entry

@@ -1,15 +1,17 @@
 #!/opt/homebrew/bin/bash
 
-[[ -f $SCRIPT_DIR/utils/journals.sh ]] && . $SCRIPT_DIR/utils/journals.sh
-JOURNAL_INDEX=$PROJ_DIR/index.wiki
+[[ $CONFIG -ne 1 ]] && [[ -f config.sh ]] && . config.sh
 
+import journals
+
+JOURNAL_INDEX=$PROJ_DIR/index.wiki
 declare -a journals
 get_journals journals
 
 echo "
 %title Journal Index
 -----------------------------------------------
-[[/index.wiki|Index]] [[full_index.wiki|Full Index]] [[tasks.wiki|Tasks Index]] [[how-to.wiki|How-To Index]]
+$SITE_NAV
 -----------------------------------------------
 
 Journals

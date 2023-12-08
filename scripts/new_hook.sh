@@ -1,10 +1,8 @@
 #!/usr/local/bin/bash
 
-export PROJECT_DIR=~/Notes
-export SCRIPT_DIR=$PROJECT_DIR/scripts
-export JOURNAL_DIR=$PROJECT_DIR/wikis
+cd `dirname $0`
 
-cd $SCRIPT_DIR
+[[ -f config.sh ]] && . config.sh
 
 ./make_new.sh
-./update_all.sh
+./update_hook.sh

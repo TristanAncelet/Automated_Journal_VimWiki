@@ -4,7 +4,7 @@ cd $JOURNAL_DIR
 DATE=`date +'%Y-%m-%d'`
 FILE="$JOURNAL_DIR/$DATE.wiki"
 
-[[ -f $SCRIPT_DIR/utils/journals.sh ]] && . $SCRIPT_DIR/utils/journals.sh
+import journals
 
 # Getting the last journal entry file
 declare -a journals

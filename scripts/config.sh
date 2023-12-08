@@ -7,7 +7,8 @@ export SCRIPT_DIR=$PROJ_DIR/scripts
 export FILES_DIR=$PROJ_DIR/files
 export SUBJECTS_DIR=$PROJ_DIR/subjects
 export UTILS_DIR=$SCRIPT_DIR/utils
-export SITE_NAV='[[/index.wiki|Index]] [[/full_index.wiki|Full Index]] [[/tasks.wiki|Tasks]] [[/how-to.wiki|How-To]] [[/subjects.wiki|Subjects]]'
+export TICKET_DIR=$PROJ_DIR/ticket
+export SITE_NAV='[[/index.wiki|Index]] [[/full_index.wiki|Full Index]] [[/tasks.wiki|Tasks]] [[/how-to.wiki|How-To]] [[/subjects.wiki|Subjects]] [[/tickets.wiki|Tickets]]'
 
 function import () {
 	local SCRIPT_NAME="${1:?"import : script name not provided"}"

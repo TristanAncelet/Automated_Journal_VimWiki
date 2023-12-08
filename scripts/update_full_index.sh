@@ -10,6 +10,11 @@ get_journals journals
 echo "
 %title Full Index
 
+------------------
+$SITE_NAV
+------------------
+
+
 # Journals: Times & Topics
 $( 
 for file_path in ${journals[@]}; do

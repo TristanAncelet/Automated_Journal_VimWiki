@@ -1,5 +1,5 @@
-#!/usr/bin/bash
-[[ -f ~/Journal/utils/journals.sh ]] && . ~/Journal/utils/journals.sh
+#!/opt/homebrew/bin/bash
+[[ -f ~/Notes/utils/journals.sh ]] && . ~/Notes/utils/journals.sh
 
 function get_tasks () {
 	local -a journals

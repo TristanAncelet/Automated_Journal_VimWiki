@@ -1,11 +1,9 @@
-#!/usr/bin/bash
+#!/opt/homebrew/bin/bash
 
 #set -x
 
-JOURNAL_DIR=~/Journal
-JOURNAL_SCRIPT_DIR=$JOURNAL_DIR/scripts
-[[ -f $JOURNAL_SCRIPT_DIR/utils/journals.sh ]] && . $JOURNAL_SCRIPT_DIR/utils/journals.sh
-JOURNAL_FULL_INDEX=$JOURNAL_DIR/full_index.wiki
+[[ -f $SCRIPT_DIR/utils/journals.sh ]] && . $SCRIPT_DIR/utils/journals.sh
+JOURNAL_FULL_INDEX=$PROJ_DIR/full_index.wiki
 
 declare -a journals
 get_journals journals
@@ -15,21 +13,23 @@ echo "
 
 # Journals: Times & Topics
 $( 
-for file in ${journals[@]}; do
+for file_path in ${journals[@]}; do
+	file="${file_path/*\/}"
+	journal_full_path=$PROJ_DIR$file_path
 	echo -e '\n\n'
-	echo "[[$file|$(echo $file | cut -d '.' -f 1 | tr '-' ' ')]]"
+	echo "[[$file_path|$(echo $file | cut -d '.' -f 1 | tr '-' '/')]]"
 
 	echo "# Times"
 	while read time; do
-		echo "  - [[$file#$time|$time]]"
-	done <<< "$( grep '== ' $file | grep -Eo '[0-9]+:[0-9]+ [A-Za-z]{2} [A-Za-z]{3}')"
+		echo "  - [[$file_path#$time|$time]]"
+	done <<< "$( grep '== ' $journal_full_path | grep -Eo '[0-9]+:[0-9]+ [A-Za-z]{2} [A-Za-z]{3}')"
 
 	echo 
 
 	echo "# Topics"
 	while read topic; do
-		echo "  - [[$file#$topic|$topic]]"
-	done <<< "$( grep -Eo '^===[=]* .+ ===[=]*' $file | tr '=' ' ' | sort -u)"
+		echo "  - [[$file_path#$topic|$topic]]"
+	done <<< "$( grep -Eo '^===[=]* .+ ===[=]*' $journal_full_path | tr '=' ' ' | sort -u)"
 done
 )
 

@@ -2,10 +2,10 @@
 
 from pathlib import Path
 from utils.py.journals import *
+import os
 
-SCRIPT_DIR=Path.home()/"Journal"/"scripts"
-SCRIPT_DIR.cwd()
-TASK_FILE=Path.home()/"Journal"/"tasks.wiki"
+PROJ_DIR=Path(os.getenv("PROJ_DIR"))
+TASK_FILE=PROJ_DIR/"tasks.wiki"
 
 if not TASK_FILE.exists():
     TASK_FILE.touch()
@@ -27,14 +27,17 @@ with TASK_FILE.open('a') as file:
             file.write(f"[[{filename}|{file_date}]]\n")
 
         if len(todo) != 0:
-            file.write("# TODO\n")
+            file.write("TODO\n")
+            file.write("----\n")
+
             for task in todo:
                 task_string=task.replace('=','').strip()
                 file.write(f"- [[{filename}#{task_string}|{task_string}]]\n")
             file.write("\n")
 
         if len(done) != 0:
-            file.write("# DONE\n")
+            file.write("DONE\n")
+            file.write("----\n")
             for task in done:
                 task_string=task.replace('=','').strip()
                 file.write(f"- [[{filename}#{task_string}|{task_string}]]\n")

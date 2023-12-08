@@ -1,12 +1,11 @@
-#!/usr/bin/bash
-JOURNAL_DIR=~/Journal
-FILES_DIR=$JOURNAL_DIR/files
-SCRIPT_DIR=$JOURNAL_DIR/scripts/enabled
+#!/opt/homebrew/bin/bash
+export PROJ_DIR=~/Notes
+export JOURNAL_DIR=$PROJ_DIR/wikis
+export FILES_DIR=$PROJ_DIR/files
+export SCRIPT_DIR=$PROJ_DIR/scripts
 
-#set -x
+cd $PROJ_DIR
 
-cd $JOURNAL_DIR
-
-for script in $SCRIPT_DIR/*; do
+for script in $SCRIPT_DIR/enabled/**; do
 	[[ -x $script ]] && $script
 done

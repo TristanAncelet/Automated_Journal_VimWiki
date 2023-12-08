@@ -1,17 +1,16 @@
-#!/usr/bin/bash
+#!/opt/homebrew/bin/bash
 
-JOURNAL_DIR=~/Journal
 cd $JOURNAL_DIR
-UPDATE_ALL=$JOURNAL_DIR/scripts/update_all.sh
 DATE=`date +'%Y-%m-%d'`
 FILE="$JOURNAL_DIR/$DATE.wiki"
 
-[[ -f $JOURNAL_DIR/scripts/utils/journals.sh ]] && . $JOURNAL_DIR/scripts/utils/journals.sh
+[[ -f $SCRIPT_DIR/utils/journals.sh ]] && . $SCRIPT_DIR/utils/journals.sh
 
 # Getting the last journal entry file
 declare -a journals
 get_journals journals
 LAST_JOURNAL_ENTRY="${journals[-1]}"
+LAST_JOURNAL_ENTRY="${LAST_JOURNAL_ENTRY/*\/}"
 
 declare -A topics
 
@@ -39,28 +38,31 @@ echo "[[$LAST_JOURNAL_ENTRY|Last Journal Entry]]
 
 %title $DATE Journal Entry
 
-# Main Topics from previous journal entry
+---------------------
+[[/index.wiki|Index]]
+---------------------
+
+Main Topics from previous journal entry
+---------------------------------------
 $( for topic in "${!topics[@]}"; do 
 	level=${topics["$topic"]}
-	[[ $level -eq 1 ]] && echo "[[$LAST_JOURNAL_ENTRY#$topic|$topic]]"; 
+	[[ $level -eq 1 ]] && echo "- [[$LAST_JOURNAL_ENTRY#$topic|$topic]]"; 
 done )
 
-# Times
+Times
+-----
 $( for topic in "${!topics[@]}"; do 
 	level=${topics["$topic"]}
-	[[ $level -eq 2 ]] && echo "[[$LAST_JOURNAL_ENTRY#$topic|$topic]]"; 
+	[[ $level -eq 2 ]] && echo "- [[$LAST_JOURNAL_ENTRY#$topic|$topic]]"; 
 done )
 
-# Subtopics
+Subtopics
+---------
 $( for topic in "${!topics[@]}"; do 
 	level=${topics["$topic"]}
-	[[ $level -gt 2 ]] && echo "[[$LAST_JOURNAL_ENTRY#$topic|$topic]]"; 
+	[[ $level -gt 2 ]] && echo "- [[$LAST_JOURNAL_ENTRY#$topic|$topic]]"; 
 done )
 
 
 " > $FILE
 
-
-
-
-[[ -f $UPDATE_ALL ]] && $UPDATE_ALL

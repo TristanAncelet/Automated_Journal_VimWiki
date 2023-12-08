@@ -1,26 +1,24 @@
-#!/usr/bin/bash
+#!/opt/homebrew/bin/bash
 
-#set -x
-
-JOURNAL_DIR=/home/tristan/Journal
-JOURNAL_SCRIPT_DIR=$JOURNAL_DIR/scripts
-[[ -f $JOURNAL_SCRIPT_DIR/utils/journals.sh ]] && . $JOURNAL_SCRIPT_DIR/utils/journals.sh
-
-JOURNAL_INDEX=$JOURNAL_DIR/index.wiki
+[[ -f $SCRIPT_DIR/utils/journals.sh ]] && . $SCRIPT_DIR/utils/journals.sh
+JOURNAL_INDEX=$PROJ_DIR/index.wiki
 
 declare -a journals
 get_journals journals
 
 echo "
 %title Journal Index
-[[full_index.wiki|Full Index]]
-[[tasks.wiki|Tasks Index]]
-[[how-to.wiki|How-To Index]]
+-----------------------------------------------
+[[/index.wiki|Index]] [[full_index.wiki|Full Index]] [[tasks.wiki|Tasks Index]] [[how-to.wiki|How-To Index]]
+-----------------------------------------------
 
-# Journals
+Journals
+--------
 $( 
-for journal in ${journals[@]}; do
-	echo "- [[$journal|$( echo $journal | cut -d'.' -f 1 | tr '-' ' ')]]"
+for journal_path in ${journals[@]}; do
+	journal_file="${journal_path/*\/}"
+	journal_name="$( echo $journal_file | cut -d '.' -f 1 | tr '-' '/' )"
+	echo "- [[$journal_path|$journal_name]]"
 done
 )
 

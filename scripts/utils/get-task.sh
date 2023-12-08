@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/opt/homebrew/bin/bash
 : "
 get_task_number
 This function will query sqlite db to either get the number of a task OR create the task and return the number
